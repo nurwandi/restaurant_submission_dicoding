@@ -5,8 +5,8 @@ abstract class ImplementState {}
 
 class ImplementInitial extends ImplementState {}
 
-class ActualicedState extends ImplementState {
-  final int counter;
+class RestaurantLoadedState extends ImplementState {
+  final RestaurantList restaurant;
 
-  ActualicedState(this.counter);
+  RestaurantLoadedState(this.restaurant);
 }
