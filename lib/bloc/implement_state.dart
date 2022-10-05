@@ -5,8 +5,20 @@ abstract class ImplementState {}
 
 class ImplementInitial extends ImplementState {}
 
-class RestaurantLoadedState extends ImplementState {
-  final RestaurantList restaurant;
+class AllRestaurantLoadedState extends ImplementState {
+  final List<Restaurant> restaurants;
 
-  RestaurantLoadedState(this.restaurant);
+  AllRestaurantLoadedState(this.restaurants);
 }
+
+class FoundedRestaurantsState extends ImplementState {
+  final List<Restaurant> restaurants;
+
+  FoundedRestaurantsState(this.restaurants);
+}
+
+class SearchingState extends ImplementState {}
+
+class NotFoundState extends ImplementState {}
+
+class ErrorState extends ImplementState {}

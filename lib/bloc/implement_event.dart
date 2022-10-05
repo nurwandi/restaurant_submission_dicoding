@@ -3,4 +3,10 @@ part of 'implement_bloc.dart';
 @immutable
 abstract class ImplementEvent {}
 
-class GetRestaurant extends ImplementEvent {}
+class GetAllRestaurant extends ImplementEvent {}
+
+class SearchRestaurant extends ImplementEvent {
+  final String query;
+
+  SearchRestaurant(this.query);
+}

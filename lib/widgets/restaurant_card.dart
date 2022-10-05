@@ -1,96 +1,113 @@
 import 'package:flutter/material.dart';
-
-import '../models/list.dart';
+import '../models/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final Restaurant restaurant;
+  final List<Restaurant> restaurants;
 
   const RestaurantCard({
     Key? key,
-    required this.restaurant,
+    required this.restaurants,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
-      width: MediaQuery.of(context).size.width,
-      height: 180,
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(15),
-        image: DecorationImage(
-          colorFilter: ColorFilter.mode(
-            Color.fromARGB(255, 70, 70, 70).withOpacity(0.80),
-            BlendMode.multiply,
-          ),
-          image: NetworkImage(
-              'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Stack(
-        children: [
-          Align(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(
-                restaurant.name,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
+    return ListView.builder(
+        itemCount: restaurants.length,
+        itemBuilder: (BuildContext context, int index) {
+          print(restaurants[index].pictureId);
+          return Container(
+            margin: const EdgeInsets.symmetric(horizontal: 22, vertical: 10),
+            width: MediaQuery.of(context).size.width,
+            height: 180,
+            decoration: BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.6),
+                  offset: const Offset(
+                    0.0,
+                    10.0,
+                  ),
+                  blurRadius: 10.0,
+                  spreadRadius: -6.0,
+                ),
+              ],
+              image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.35),
+                  BlendMode.multiply,
+                ),
+                image: NetworkImage(restaurants[index].pictureId),
+                fit: BoxFit.cover,
               ),
             ),
-            alignment: Alignment.center,
-          ),
-          Align(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Stack(
               children: [
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 18,
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      restaurants[index].name,
+                      style: const TextStyle(
+                        fontSize: 19,
                       ),
-                      SizedBox(width: 7),
-                      Text(restaurant.rating.toString()),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 7),
+                            Text(restaurants[index].rating.toString()),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(5),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.4),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.schedule,
+                              color: Colors.yellow,
+                              size: 18,
+                            ),
+                            const SizedBox(width: 7),
+                            Text(restaurants[index].city),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(5),
-                  margin: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.4),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_city,
-                        color: Colors.yellow,
-                        size: 18,
-                      ),
-                      SizedBox(width: 7),
-                      Text(restaurant.city),
-                    ],
-                  ),
-                )
               ],
             ),
-            alignment: Alignment.bottomLeft,
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
