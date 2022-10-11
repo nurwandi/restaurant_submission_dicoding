@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'models/details.dart';
 import 'models/restaurant.dart';
 
 class RestaurantDetail extends StatelessWidget {
-  const RestaurantDetail({super.key, required this.restaurant});
+  const RestaurantDetail(
+      {super.key, required this.restaurant, required this.menus});
 
   final Restaurant restaurant;
+  final Menus menus;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,6 +74,75 @@ class RestaurantDetail extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(fontSize: 13, color: Colors.black),
                   ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Text(
+                    'Minuman',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 15),
+                  SizedBox(
+                    height: 100,
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: menus.drinks
+                            .map((menu) => Card(
+                                child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: Colors.orange.shade400,
+                                    ),
+                                    child: Center(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(menu.name),
+                                        SizedBox(
+                                          width: 20,
+                                        )
+                                      ],
+                                    )))))
+                            .toList()),
+                  ),
+                  Text(
+                    'Makanan',
+                    style: TextStyle(fontSize: 18, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 15),
+                  SizedBox(
+                    height: 100,
+                    child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: menus.foods
+                            .map((menu) => Card(
+                                child: Container(
+                                    width: 120,
+                                    height: 120,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      color: Colors.orange.shade400,
+                                    ),
+                                    child: Center(
+                                        child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 12.0),
+                                          child: Text(menu.name),
+                                        ),
+                                      ],
+                                    )))))
+                            .toList()),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             )

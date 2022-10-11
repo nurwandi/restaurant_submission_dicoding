@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_2_api/models/details.dart';
 import 'package:restaurant_2_api/restaurant_detail.dart';
 import '../models/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
   final List<Restaurant> restaurants;
+  final List<Menus> menu;
 
   const RestaurantCard({
     Key? key,
-    required this.restaurants,
+    required this.restaurants, required this.menu
   }) : super(key: key);
 
   @override
@@ -22,6 +24,7 @@ class RestaurantCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => RestaurantDetail(
+                            menus: menu[index],
                             restaurant: restaurants[index],
                           )));
             },
