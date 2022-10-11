@@ -10,3 +10,5 @@ class SearchRestaurant extends ImplementEvent {
 
   SearchRestaurant(this.query);
 }
+
+class CheckConection extends ImplementEvent {}

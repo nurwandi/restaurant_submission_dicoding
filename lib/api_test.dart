@@ -9,19 +9,6 @@ import 'models/review.dart';
 import 'models/search.dart';
 
 main() async {
-  // api.details('rqdv5juczeskfw1e867').then((result) {
-  //   print('Api: ${result.message}');
-  //   print("restaurant: ${result.restaurant.address}");
-  // }).onError((error, stackTrace) {
-  //   print('Api error: $error');
-  // }).whenComplete(() => exit(0));
-
-  // api.search('kita').then((result) {
-  //   print('num items: ${result.founded}');
-  // }).onError((error, stackTrace) {
-  //   print('Api error: $error');
-  // }).whenComplete(() => exit(0));
-
   api
       .review(
     id: 'rqdv5juczeskfw1e867',
@@ -30,7 +17,6 @@ main() async {
   )
       .then((data) {
     var firstReview = data.customerReviews.first.review;
-    print('first review: $firstReview');
   });
 }
 

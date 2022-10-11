@@ -26,7 +26,9 @@ class MyApp extends StatelessWidget {
               secondary: const Color(0xFF94d4ef)),
           backgroundColor: Colors.white),
       home: BlocProvider(
-        create: (_) => ImplementBloc(api)..add(GetAllRestaurant()),
+        create: (_) => ImplementBloc(api)
+          ..add(GetAllRestaurant())
+          ..add(CheckConection()),
         child: const HomePage(),
       ),
     );

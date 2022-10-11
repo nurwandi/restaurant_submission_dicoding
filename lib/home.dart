@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/widgets/restaurant_card.dart';
-
 import 'bloc/implement_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -41,6 +40,16 @@ class HomePage extends StatelessWidget {
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: BlocBuilder<ImplementBloc, ImplementState>(
                   builder: (context, state) {
+                    if (state is HasConnection) {
+                      context.read<ImplementBloc>().add(GetAllRestaurant());
+                    }
+                    if (state is NoConnection) {
+                      return const Center(
+                          child: Text(
+                        'No Internet',
+                        style: TextStyle(color: Colors.black),
+                      ));
+                    }
                     if (state is AllRestaurantLoadedState) {
                       return RestaurantCard(restaurants: state.restaurants);
                     }
@@ -48,11 +57,18 @@ class HomePage extends StatelessWidget {
                       return RestaurantCard(restaurants: state.restaurants);
                     }
                     if (state is SearchingState) {
-                      return const Center(
-                          child: Text(
-                        'Searching.....',
-                        style: TextStyle(color: Colors.black),
-                      ));
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator.adaptive(),
+                          const Center(
+                              child: Text(
+                            'Searching.....',
+                            style: TextStyle(color: Colors.black),
+                          )),
+                        ],
+                      );
                     }
                     if (state is NotFoundState) {
                       return const Center(
@@ -61,10 +77,17 @@ class HomePage extends StatelessWidget {
                         style: TextStyle(color: Colors.black),
                       ));
                     } else {
-                      return const Center(
-                          child: Center(
-                              child: Text('Default Screen.....',
-                                  style: TextStyle(color: Colors.black))));
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator.adaptive(),
+                          const Center(
+                              child: Center(
+                                  child: Text('Default Screen.....',
+                                      style: TextStyle(color: Colors.black)))),
+                        ],
+                      );
                     }
                   },
                 ),

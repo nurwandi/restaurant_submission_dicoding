@@ -22,3 +22,7 @@ class SearchingState extends ImplementState {}
 class NotFoundState extends ImplementState {}
 
 class ErrorState extends ImplementState {}
+
+class NoConnection extends ImplementState {}
+
+class HasConnection extends ImplementState {}
