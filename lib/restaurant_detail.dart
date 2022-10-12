@@ -3,11 +3,10 @@ import 'models/details.dart';
 import 'models/restaurant.dart';
 
 class RestaurantDetail extends StatelessWidget {
-  const RestaurantDetail(
-      {super.key, required this.restaurant, required this.menus});
+  const RestaurantDetail({super.key, required this.restaurant});
 
-  final Restaurant restaurant;
-  final Menus menus;
+  final GetRestaurantDetail restaurant;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +85,7 @@ class RestaurantDetail extends StatelessWidget {
                     height: 100,
                     child: ListView(
                         scrollDirection: Axis.horizontal,
-                        children: menus.drinks
+                        children: restaurant.menus.drinks
                             .map((menu) => Card(
                                 child: Container(
                                     width: 120,
@@ -117,7 +116,7 @@ class RestaurantDetail extends StatelessWidget {
                     height: 100,
                     child: ListView(
                         scrollDirection: Axis.horizontal,
-                        children: menus.foods
+                        children: restaurant.menus.foods
                             .map((menu) => Card(
                                 child: Container(
                                     width: 120,

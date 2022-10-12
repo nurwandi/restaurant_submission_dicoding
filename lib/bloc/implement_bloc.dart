@@ -6,6 +6,8 @@ import 'package:restaurant_2_api/models/restaurant.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 
+import '../models/details.dart';
+
 part 'implement_event.dart';
 part 'implement_state.dart';
 
