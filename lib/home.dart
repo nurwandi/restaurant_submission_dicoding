@@ -60,9 +60,9 @@ class HomePage extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           CircularProgressIndicator.adaptive(),
-                          const Center(
+                          Center(
                               child: Text(
                             'Searching.....',
                             style: TextStyle(color: Colors.black),
@@ -80,9 +80,9 @@ class HomePage extends StatelessWidget {
                       return Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: const [
                           CircularProgressIndicator.adaptive(),
-                          const Center(
+                          Center(
                               child: Center(
                                   child: Text('Default Screen.....',
                                       style: TextStyle(color: Colors.black)))),

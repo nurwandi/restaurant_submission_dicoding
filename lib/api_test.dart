@@ -37,6 +37,7 @@ class Api {
     var url = '$server/detail/$restaurantId';
     var response = await _cli.get(url.uri);
     var json = jsonDecode(response.body);
+    print(json["restaurant"]["menus"]);
     return RestaurantDetails.fromJson(json);
   }
 

@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/home.dart';
-
-import 'api_test.dart';
 import 'bloc/implement_bloc.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final Api api = Api();
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -26,7 +23,7 @@ class MyApp extends StatelessWidget {
               secondary: const Color(0xFF94d4ef)),
           backgroundColor: Colors.white),
       home: BlocProvider(
-        create: (_) => ImplementBloc(api)
+        create: (_) => ImplementBloc()
           ..add(GetAllRestaurant())
           ..add(CheckConection()),
         child: const HomePage(),

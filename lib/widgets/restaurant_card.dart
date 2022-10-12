@@ -4,9 +4,12 @@ import 'package:restaurant_2_api/restaurant_detail.dart';
 import '../models/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
-  final List<GetRestaurantDetail> restaurants;
+  final List<Restaurant> restaurants;
 
-  const RestaurantCard({Key? key, required this.restaurants}) : super(key: key);
+  const RestaurantCard({
+    Key? key,
+    required this.restaurants,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

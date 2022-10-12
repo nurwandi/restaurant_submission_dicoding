@@ -12,3 +12,9 @@ class SearchRestaurant extends ImplementEvent {
 }
 
 class CheckConection extends ImplementEvent {}
+
+class GetRestaurantDetails extends ImplementEvent {
+  final String restaurantId;
+
+  GetRestaurantDetails(this.restaurantId);
+}

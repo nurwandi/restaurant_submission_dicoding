@@ -17,6 +17,12 @@ class FoundedRestaurantsState extends ImplementState {
   FoundedRestaurantsState(this.restaurants);
 }
 
+class RestaurantDetailsState extends ImplementState {
+  final RestaurantDetails restaurantDetails;
+
+  RestaurantDetailsState({required this.restaurantDetails});
+}
+
 class SearchingState extends ImplementState {}
 
 class NotFoundState extends ImplementState {}

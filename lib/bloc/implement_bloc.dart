@@ -12,8 +12,13 @@ part 'implement_event.dart';
 part 'implement_state.dart';
 
 class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
-  final Api api;
-  ImplementBloc(this.api) : super(ImplementInitial()) {
+  final Api api = Api();
+  ImplementBloc() : super(ImplementInitial()) {
+    on<GetRestaurantDetails>((event, emit) async {
+      final details = await api.details(event.restaurantId);
+      emit(RestaurantDetailsState(restaurantDetails: details));
+    });
+
     on<GetAllRestaurant>((event, emit) async {
       try {
         var restaurant = await api.list();
