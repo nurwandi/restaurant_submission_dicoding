@@ -34,8 +34,10 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
       await emit.onEach(conectionStream, onData: (conectivityResult) {
         if (conectivityResult == ConnectivityResult.wifi ||
             conectivityResult == ConnectivityResult.mobile) {
+          print('Has connection');
           emit(HasConnection());
         } else {
+          print('No connection');
           emit(NoConnection());
         }
       });
@@ -44,21 +46,6 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
     on<SearchRestaurant>(
       (event, emit) async {
         try {
-          emit(SearchingState());
-          if (event.query.isNotEmpty) {
-            var restaurant = await api.search(event.query);
-            if (restaurant.founded > 0) {
-              emit(FoundedRestaurantsState(restaurant.foundedRestaurants));
-            } else {
-              emit(NoConnection());
-            }
-          } else {
-            emit(NotFoundState());
-
-            var restaurant = await api.list();
-            emit(AllRestaurantLoadedState(restaurant.restaurants));
-          }
-
           emit(SearchingState());
           if (event.query.isNotEmpty) {
             var restaurant = await api.search(event.query);
