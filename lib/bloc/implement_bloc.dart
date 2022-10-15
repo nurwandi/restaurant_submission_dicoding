@@ -14,6 +14,16 @@ part 'implement_state.dart';
 class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
   final Api api = Api();
   ImplementBloc() : super(ImplementInitial()) {
+    Future<bool> internetConectivity() async {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.mobile ||
+          connectivityResult == ConnectivityResult.wifi) {
+        return true;
+      } else {
+        throw InternetException();
+      }
+    }
+
     on<GetRestaurantDetails>((event, emit) async {
       final details = await api.details(event.restaurantId);
       emit(RestaurantDetailsState(restaurantDetails: details));
@@ -21,10 +31,13 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
 
     on<GetAllRestaurant>((event, emit) async {
       try {
+        await internetConectivity();
         var restaurant = await api.list();
         emit(AllRestaurantLoadedState(restaurant.restaurants));
+      } on InternetException {
+        return emit(NoConnection());
       } catch (_) {
-        emit(ErrorState());
+        return emit(ErrorState());
       }
     });
 
@@ -34,11 +47,9 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
       await emit.onEach(conectionStream, onData: (conectivityResult) {
         if (conectivityResult == ConnectivityResult.wifi ||
             conectivityResult == ConnectivityResult.mobile) {
-          print('Has connection');
-          emit(HasConnection());
+          return emit(HasConnection());
         } else {
-          print('No connection');
-          emit(NoConnection());
+          return emit(NoConnection());
         }
       });
     });
@@ -46,6 +57,8 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
     on<SearchRestaurant>(
       (event, emit) async {
         try {
+          await internetConectivity();
+
           emit(SearchingState());
           if (event.query.isNotEmpty) {
             var restaurant = await api.search(event.query);
@@ -58,10 +71,14 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
             var restaurant = await api.list();
             emit(AllRestaurantLoadedState(restaurant.restaurants));
           }
+        } on InternetException {
+          return emit(NoConnection());
         } catch (_) {
-          emit(ErrorState());
+          return emit(ErrorState());
         }
       },
     );
   }
 }
+
+class InternetException implements Exception {}
