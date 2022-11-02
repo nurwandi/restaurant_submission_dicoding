@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurant_2_api/setting_page.dart';
 import 'package:restaurant_2_api/widgets/restaurant_card.dart';
 import 'bloc/implement_bloc.dart';
 
@@ -9,13 +10,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: SettingPage(),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Icon(Icons.restaurant_menu),
               SizedBox(width: 10),
-              Text('Restaurants'),
             ],
           ),
         ),
