@@ -5,6 +5,7 @@ import 'package:restaurant_2_api/api_test.dart';
 import 'package:restaurant_2_api/models/restaurant.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/details.dart';
 
@@ -13,7 +14,9 @@ part 'implement_state.dart';
 
 class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
   final Api api = Api();
-  ImplementBloc() : super(ImplementInitial()) {
+  final SharedPreferences sharedPreferences;
+
+  ImplementBloc(this.sharedPreferences) : super(ImplementInitial()) {
     Future<bool> internetConectivity() async {
       var connectivityResult = await (Connectivity().checkConnectivity());
       if (connectivityResult == ConnectivityResult.mobile ||

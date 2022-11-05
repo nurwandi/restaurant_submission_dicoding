@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/setting_page.dart';
 import 'package:restaurant_2_api/widgets/restaurant_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/implement_bloc.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+  const HomePage({Key? key, required this.shared}) : super(key: key);
+  final SharedPreferences shared;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,10 +52,12 @@ class HomePage extends StatelessWidget {
                       ));
                     }
                     if (state is AllRestaurantLoadedState) {
-                      return RestaurantCard(restaurants: state.restaurants);
+                      return RestaurantCard(
+                          shared: shared, restaurants: state.restaurants);
                     }
                     if (state is FoundedRestaurantsState) {
-                      return RestaurantCard(restaurants: state.restaurants);
+                      return RestaurantCard(
+                          shared: shared, restaurants: state.restaurants);
                     }
                     if (state is SearchingState) {
                       return Column(

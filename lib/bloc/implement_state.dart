@@ -32,3 +32,5 @@ class ErrorState extends ImplementState {}
 class NoConnection extends ImplementState {}
 
 class HasConnection extends ImplementState {}
+
+class FavRestToShow {}

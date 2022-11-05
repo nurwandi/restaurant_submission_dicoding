@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/implement_bloc.dart';
 import 'models/restaurant.dart';
 
 class RestaurantDetail extends StatelessWidget {
-  const RestaurantDetail({super.key, required this.restaurant});
-
+  const RestaurantDetail(
+      {super.key, required this.restaurant, required this.shared});
+  final SharedPreferences shared;
   final Restaurant restaurant;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ImplementBloc()..add(GetRestaurantDetails(restaurant.id)),
+          ImplementBloc(shared)..add(GetRestaurantDetails(restaurant.id)),
       child:
           BlocBuilder<ImplementBloc, ImplementState>(builder: (context, state) {
         if (state is RestaurantDetailsState) {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_2_api/models/details.dart';
 import 'package:restaurant_2_api/restaurant_detail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
   final List<Restaurant> restaurants;
-
-  const RestaurantCard({
-    Key? key,
-    required this.restaurants,
-  }) : super(key: key);
+  final SharedPreferences shared;
+  const RestaurantCard(
+      {Key? key, required this.restaurants, required this.shared})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +23,7 @@ class RestaurantCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (_) => RestaurantDetail(
+                            shared: shared,
                             restaurant: restaurants[index],
                           )));
             },

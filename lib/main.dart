@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/implement_bloc.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  final pref = await SharedPreferences.getInstance();
+  runApp(MyApp(shared: pref));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final SharedPreferences shared;
+  MyApp({super.key, required this.shared});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,12 @@ class MyApp extends StatelessWidget {
               secondary: const Color(0xFF94d4ef)),
           backgroundColor: Colors.white),
       home: BlocProvider(
-        create: (_) => ImplementBloc()
+        create: (_) => ImplementBloc(shared)
           ..add(GetAllRestaurant())
           ..add(CheckConection()),
-        child: const HomePage(),
+        child: HomePage(
+          shared: shared,
+        ),
       ),
     );
   }
