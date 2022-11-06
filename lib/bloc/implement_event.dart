@@ -18,3 +18,15 @@ class GetRestaurantDetails extends ImplementEvent {
 
   GetRestaurantDetails(this.restaurantId);
 }
+
+//This event will be triggered when you want to store data on your
+//sharePref Database
+class AddNewFavouriteRestaurant extends ImplementEvent {
+  final String id;
+
+  AddNewFavouriteRestaurant(this.id);
+}
+
+//This event will be triggered when you want to retrive data from your
+//sharePref Database
+class GerFavouriteRestaurants extends ImplementEvent {}
