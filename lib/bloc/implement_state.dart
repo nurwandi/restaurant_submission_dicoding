@@ -33,4 +33,8 @@ class NoConnection extends ImplementState {}
 
 class HasConnection extends ImplementState {}
 
-class FavRestToShow {}
+class FavoriteRestaurantToShow extends ImplementState {
+  final List<Restaurant> restaurants;
+
+  FavoriteRestaurantToShow(this.restaurants);
+}

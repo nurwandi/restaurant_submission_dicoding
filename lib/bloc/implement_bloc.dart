@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -81,7 +83,47 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
         }
       },
     );
+
+    on<AddNewFavouriteRestaurant>((event, emit) {
+      //Get the restaurants already stored...
+      var listOfFavouritesRestaurants =
+          sharedPreferences.getStringList('listOfFavouritesRestaurants') ?? [];
+      //Add a newone
+      listOfFavouritesRestaurants.add(event.id);
+      //Store on dataBase
+      sharedPreferences.setStringList(
+          "listOfFavouritesRestaurants", listOfFavouritesRestaurants);
+    });
+
+    on<GerFavouriteRestaurants>((event, emit) async {
+      try {
+        await internetConectivity();
+        var restaurant = await api.list();
+
+        //Get the restaurants already stored...
+        var listOfFavouritesRestaurants =
+            sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
+                [];
+
+        emit(FavoriteRestaurantToShow(getRestaurantFromFavourites(
+            restaurant.restaurants, listOfFavouritesRestaurants)));
+      } on InternetException {
+        return emit(NoConnection());
+      } catch (_) {
+        return emit(ErrorState());
+      }
+    });
   }
+}
+
+List<Restaurant> getRestaurantFromFavourites(
+    List<Restaurant> restaurants, List<String> ids) {
+  var myFilterdList = <Restaurant>[];
+  for (var id in ids) {
+    myFilterdList
+        .add(restaurants.firstWhere((restaurant) => restaurant.id == id));
+  }
+  return myFilterdList;
 }
 
 class InternetException implements Exception {}
