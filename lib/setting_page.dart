@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_2_api/favorites_page.dart';
+import 'package:restaurant_2_api/notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatefulWidget {
@@ -54,7 +54,9 @@ class _SettingPageState extends State<SettingPage> {
                   value: _isSwitched,
                   onChanged: (val) {
                     setState(() {
-                      _isSwitched = val;
+                      (_isSwitched = val)
+                          ? createRestaurantNotification()
+                          : null;
                     });
                   }),
             )

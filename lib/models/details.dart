@@ -25,8 +25,8 @@ class RestaurantDetails {
 
   factory RestaurantDetails.fromJson(Map<String, dynamic> json) =>
       RestaurantDetails(
-        error: json["error"] == null ? null : json["error"],
-        message: json["message"] == null ? null : json["message"],
+        error: json["error"],
+        message: json["message"],
         restaurant: Restaurant.fromJson(json["restaurant"]),
         menus: Menus.fromJson(json["restaurant"]["menus"]),
         customerReviews: (json["restaurant"]["customerReviews"] as List)
@@ -35,8 +35,8 @@ class RestaurantDetails {
       );
 
   Map<String, dynamic> toJson() => {
-        "error": error == null ? null : error,
-        "message": message == null ? null : message,
+        "error": error,
+        "message": message,
         "restaurant": restaurant == null ? null : restaurant.toJson(),
         "menus": menus.toJson(),
         "customerReviews": customerReviews,
@@ -51,11 +51,11 @@ class Category {
   final String name;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
-        name: json["name"] == null ? null : json["name"],
+        name: json["name"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
+        "name": name,
       };
 }
 
@@ -71,15 +71,15 @@ class CustomerReview {
   final String date;
 
   factory CustomerReview.fromJson(Map<String, dynamic> json) => CustomerReview(
-        name: json["name"] == null ? null : json["name"],
-        review: json["review"] == null ? null : json["review"],
-        date: json["date"] == null ? null : json["date"],
+        name: json["name"],
+        review: json["review"],
+        date: json["date"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "review": review == null ? null : review,
-        "date": date == null ? null : date,
+        "name": name,
+        "review": review,
+        "date": date,
       };
 }
 

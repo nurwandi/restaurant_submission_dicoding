@@ -26,17 +26,17 @@ class RestaurantList {
   final List<Restaurant> restaurants;
 
   factory RestaurantList.fromJson(Map<String, dynamic> json) => RestaurantList(
-        error: json["error"] == null ? null : json["error"],
-        message: json["message"] == null ? null : json["message"],
-        count: json["count"] == null ? null : json["count"],
+        error: json["error"],
+        message: json["message"],
+        count: json["count"],
         restaurants:
             List.from(json["restaurants"].map((x) => Restaurant.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "error": error == null ? null : error,
-        "message": message == null ? null : message,
-        "count": count == null ? null : count,
+        "error": error,
+        "message": message,
+        "count": count,
         "restaurants": restaurants == null
             ? null
             : List<dynamic>.from(restaurants.map((x) => x.toJson())),

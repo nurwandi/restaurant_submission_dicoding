@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/setting_page.dart';
@@ -5,14 +6,60 @@ import 'package:restaurant_2_api/widgets/restaurant_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/implement_bloc.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.shared}) : super(key: key);
   final SharedPreferences shared;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Allow Notifications'),
+            content:
+                Text('Our app would like to send you recommended restaurants'),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'Don\'t allow',
+                    style: TextStyle(color: Colors.blue, fontSize: 18),
+                  )),
+              TextButton(
+                  onPressed: () {
+                    AwesomeNotifications()
+                        .requestPermissionToSendNotifications()
+                        .then((_) => Navigator.pop(context));
+                  },
+                  child: Text(
+                    'Allow',
+                    style: TextStyle(
+                        color: Colors.teal,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         drawer: SettingPage(
-          shared: shared,
+          shared: widget.shared,
         ),
         appBar: AppBar(
           title: Row(
@@ -57,14 +104,14 @@ class HomePage extends StatelessWidget {
                     }
                     if (state is AllRestaurantLoadedState) {
                       return RestaurantCard(
-                          shared: shared,
+                          shared: widget.shared,
                           restaurants: state.restaurants,
                           favouritesRestaurantsIds:
                               state.favouriteRestaurantsIds);
                     }
                     if (state is FoundedRestaurantsState) {
                       return RestaurantCard(
-                          shared: shared,
+                          shared: widget.shared,
                           restaurants: state.restaurants,
                           favouritesRestaurantsIds:
                               state.favouriteRestaurantsIds);

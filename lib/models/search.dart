@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 import 'package:restaurant_2_api/models/restaurant.dart';
@@ -22,15 +21,15 @@ class RestaurantSearch {
 
   factory RestaurantSearch.fromJson(Map<String, dynamic> json) =>
       RestaurantSearch(
-        error: json["error"] == null ? null : json["error"],
-        founded: json["founded"] == null ? null : json["founded"],
+        error: json["error"],
+        founded: json["founded"],
         foundedRestaurants: List<Restaurant>.from(
             json["restaurants"].map((x) => Restaurant.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "error": error == null ? null : error,
-        "founded": founded == null ? null : founded,
+        "error": error,
+        "founded": founded,
         "restaurants": foundedRestaurants == null
             ? null
             : List<dynamic>.from(foundedRestaurants.map((x) => x.toJson())),

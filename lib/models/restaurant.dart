@@ -16,21 +16,21 @@ class Restaurant {
   final double rating;
 
   factory Restaurant.fromJson(Map<String, dynamic> json) => Restaurant(
-        id: json["id"] == null ? null : json["id"],
-        name: json["name"] == null ? null : json["name"],
-        description: json["description"] == null ? null : json["description"],
+        id: json["id"],
+        name: json["name"],
+        description: json["description"],
         pictureId:
             "https://restaurant-api.dicoding.dev/images/medium/${json["pictureId"]}",
-        city: json["city"] == null ? null : json["city"],
+        city: json["city"],
         rating: json["rating"] == null ? null : json["rating"].toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "name": name == null ? null : name,
-        "description": description == null ? null : description,
-        "pictureId": pictureId == null ? null : pictureId,
-        "city": city == null ? null : city,
-        "rating": rating == null ? null : rating,
+        "id": id,
+        "name": name,
+        "description": description,
+        "pictureId": pictureId,
+        "city": city,
+        "rating": rating,
       };
 }

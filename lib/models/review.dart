@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 RestaurantReview restaurantReviewFromJson(String str) =>
@@ -20,15 +19,15 @@ class RestaurantReview {
 
   factory RestaurantReview.fromJson(Map<String, dynamic> json) =>
       RestaurantReview(
-        error: json["error"] == null ? null : json["error"],
-        message: json["message"] == null ? null : json["message"],
+        error: json["error"],
+        message: json["message"],
         customerReviews: List<CustomerReview>.from(
             json["customerReviews"].map((x) => CustomerReview.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "error": error == null ? null : error,
-        "message": message == null ? null : message,
+        "error": error,
+        "message": message,
         "customerReviews": customerReviews == null
             ? null
             : List<dynamic>.from(customerReviews.map((x) => x.toJson())),
@@ -47,14 +46,14 @@ class CustomerReview {
   final String date;
 
   factory CustomerReview.fromJson(Map<String, dynamic> json) => CustomerReview(
-        name: json["name"] == null ? null : json["name"],
-        review: json["review"] == null ? null : json["review"],
-        date: json["date"] == null ? null : json["date"],
+        name: json["name"],
+        review: json["review"],
+        date: json["date"],
       );
 
   Map<String, dynamic> toJson() => {
-        "name": name == null ? null : name,
-        "review": review == null ? null : review,
-        "date": date == null ? null : date,
+        "name": name,
+        "review": review,
+        "date": date,
       };
 }
