@@ -5,10 +5,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/restaurant.dart';
 
 class RestaurantCard extends StatelessWidget {
+  final bool? isClicked;
   final List<Restaurant> restaurants;
   final SharedPreferences shared;
   const RestaurantCard(
-      {Key? key, required this.restaurants, required this.shared})
+      {Key? key,
+      required this.restaurants,
+      required this.shared,
+      this.isClicked})
       : super(key: key);
 
   @override
@@ -74,7 +78,7 @@ class RestaurantCard extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           padding: const EdgeInsets.all(5),
@@ -113,7 +117,28 @@ class RestaurantCard extends StatelessWidget {
                               Text(restaurants[index].city),
                             ],
                           ),
-                        )
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: GestureDetector(
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.favorite,
+                                  color: Colors.yellow,
+                                  size: 18,
+                                ),
+                                const SizedBox(width: 7),
+                                Text('Favorite'),
+                              ],
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
