@@ -11,7 +11,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: SettingPage(),
+        drawer: SettingPage(
+          shared: shared,
+        ),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -40,6 +42,8 @@ class HomePage extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: BlocBuilder<ImplementBloc, ImplementState>(
+                  buildWhen: (previous, current) =>
+                      current is! FavoriteRestaurantToShow,
                   builder: (context, state) {
                     if (state is HasConnection) {
                       context.read<ImplementBloc>().add(GetAllRestaurant());
@@ -53,11 +57,17 @@ class HomePage extends StatelessWidget {
                     }
                     if (state is AllRestaurantLoadedState) {
                       return RestaurantCard(
-                          shared: shared, restaurants: state.restaurants);
+                          shared: shared,
+                          restaurants: state.restaurants,
+                          favouritesRestaurantsIds:
+                              state.favouriteRestaurantsIds);
                     }
                     if (state is FoundedRestaurantsState) {
                       return RestaurantCard(
-                          shared: shared, restaurants: state.restaurants);
+                          shared: shared,
+                          restaurants: state.restaurants,
+                          favouritesRestaurantsIds:
+                              state.favouriteRestaurantsIds);
                     }
                     if (state is SearchingState) {
                       return Column(

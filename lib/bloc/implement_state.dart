@@ -7,14 +7,15 @@ class ImplementInitial extends ImplementState {}
 
 class AllRestaurantLoadedState extends ImplementState {
   final List<Restaurant> restaurants;
+  final List<String> favouriteRestaurantsIds;
 
-  AllRestaurantLoadedState(this.restaurants);
+  AllRestaurantLoadedState(this.restaurants, this.favouriteRestaurantsIds);
 }
 
 class FoundedRestaurantsState extends ImplementState {
   final List<Restaurant> restaurants;
-
-  FoundedRestaurantsState(this.restaurants);
+  final List<String> favouriteRestaurantsIds;
+  FoundedRestaurantsState(this.restaurants, this.favouriteRestaurantsIds);
 }
 
 class RestaurantDetailsState extends ImplementState {
@@ -35,6 +36,7 @@ class HasConnection extends ImplementState {}
 
 class FavoriteRestaurantToShow extends ImplementState {
   final List<Restaurant> restaurants;
+  final List<String> favouriteRestaurantsIds;
 
-  FavoriteRestaurantToShow(this.restaurants);
+  FavoriteRestaurantToShow(this.restaurants, this.favouriteRestaurantsIds);
 }

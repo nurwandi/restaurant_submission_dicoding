@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -37,8 +35,12 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
     on<GetAllRestaurant>((event, emit) async {
       try {
         await internetConectivity();
+        var listOfFavouritesRestaurants =
+            sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
+                [];
         var restaurant = await api.list();
-        emit(AllRestaurantLoadedState(restaurant.restaurants));
+        emit(AllRestaurantLoadedState(
+            restaurant.restaurants, listOfFavouritesRestaurants));
       } on InternetException {
         return emit(NoConnection());
       } catch (_) {
@@ -63,18 +65,24 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
       (event, emit) async {
         try {
           await internetConectivity();
+          //Get the restaurants already stored...
+          var listOfFavouritesRestaurants =
+              sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
+                  [];
 
           emit(SearchingState());
           if (event.query.isNotEmpty) {
             var restaurant = await api.search(event.query);
             if (restaurant.founded > 0) {
-              emit(FoundedRestaurantsState(restaurant.foundedRestaurants));
+              emit(FoundedRestaurantsState(
+                  restaurant.foundedRestaurants, listOfFavouritesRestaurants));
             } else {
               emit(NotFoundState());
             }
           } else {
             var restaurant = await api.list();
-            emit(AllRestaurantLoadedState(restaurant.restaurants));
+            emit(AllRestaurantLoadedState(
+                restaurant.restaurants, listOfFavouritesRestaurants));
           }
         } on InternetException {
           return emit(NoConnection());
@@ -83,13 +91,19 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
         }
       },
     );
-
-    on<AddNewFavouriteRestaurant>((event, emit) {
+    on<AddOrRemoveFavouriteRestaurant>((event, emit) {
       //Get the restaurants already stored...
       var listOfFavouritesRestaurants =
           sharedPreferences.getStringList('listOfFavouritesRestaurants') ?? [];
-      //Add a newone
-      listOfFavouritesRestaurants.add(event.id);
+
+      if (listOfFavouritesRestaurants.contains(event.id)) {
+        //Remove rest
+        listOfFavouritesRestaurants.remove(event.id);
+      } else {
+        //Add a newone
+        listOfFavouritesRestaurants.add(event.id);
+      }
+
       //Store on dataBase
       sharedPreferences.setStringList(
           "listOfFavouritesRestaurants", listOfFavouritesRestaurants);
@@ -105,8 +119,10 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
             sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
                 [];
 
-        emit(FavoriteRestaurantToShow(getRestaurantFromFavourites(
-            restaurant.restaurants, listOfFavouritesRestaurants)));
+        emit(FavoriteRestaurantToShow(
+            getRestaurantFromFavourites(
+                restaurant.restaurants, listOfFavouritesRestaurants),
+            listOfFavouritesRestaurants));
       } on InternetException {
         return emit(NoConnection());
       } catch (_) {

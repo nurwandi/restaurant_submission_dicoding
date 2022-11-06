@@ -21,10 +21,10 @@ class GetRestaurantDetails extends ImplementEvent {
 
 //This event will be triggered when you want to store data on your
 //sharePref Database
-class AddNewFavouriteRestaurant extends ImplementEvent {
+class AddOrRemoveFavouriteRestaurant extends ImplementEvent {
   final String id;
 
-  AddNewFavouriteRestaurant(this.id);
+  AddOrRemoveFavouriteRestaurant(this.id);
 }
 
 //This event will be triggered when you want to retrive data from your

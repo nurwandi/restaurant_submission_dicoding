@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_2_api/favorites_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatefulWidget {
+  final SharedPreferences shared;
+
+  const SettingPage({super.key, required this.shared});
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
@@ -39,8 +43,7 @@ class _SettingPageState extends State<SettingPage> {
               leading: Icon(Icons.favorite),
               title: Text('Favorites'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Favorites()));
+                Navigator.pushNamed(context, '/favorites');
               },
             ),
             ListTile(
