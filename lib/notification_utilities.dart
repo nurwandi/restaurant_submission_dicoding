@@ -50,7 +50,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
-                      Colors.teal,
+                      Colors.blue,
                     ),
                   ),
                   child: Text(weekdays[index]),
@@ -72,7 +72,7 @@ Future<NotificationWeekAndTime?> pickSchedule(
           return Theme(
             data: ThemeData(
               colorScheme: ColorScheme.light(
-                primary: Colors.teal,
+                primary: Colors.blue,
               ),
             ),
             child: child!,
