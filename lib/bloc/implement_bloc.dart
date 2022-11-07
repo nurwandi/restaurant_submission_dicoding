@@ -116,18 +116,31 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
 
         //Get the restaurants already stored...
         var listOfFavouritesRestaurants =
-            sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
-                [];
+            sharedPreferences.getStringList('listOfFavouritesRestaurants');
 
-        emit(FavoriteRestaurantToShow(
-            getRestaurantFromFavourites(
-                restaurant.restaurants, listOfFavouritesRestaurants),
-            listOfFavouritesRestaurants));
+        if (listOfFavouritesRestaurants!.length > 0) {
+          emit(FavoriteRestaurantToShow(
+              getRestaurantFromFavourites(
+                  restaurant.restaurants, listOfFavouritesRestaurants),
+              listOfFavouritesRestaurants));
+        } else {
+          emit(NoFavouritesStored());
+        }
       } on InternetException {
         return emit(NoConnection());
       } catch (_) {
         return emit(ErrorState());
       }
+    });
+
+    on<StoreNotificationSetting>((event, emit) {
+      sharedPreferences.setBool("NotificationSetting", !event.state);
+      emit(NotificationSettingState(!event.state));
+    });
+
+    on<GetNotificationSettings>((event, emit) {
+      bool state = sharedPreferences.getBool("NotificationSetting") ?? false;
+      emit(NotificationSettingState(state));
     });
   }
 }

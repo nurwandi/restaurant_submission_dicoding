@@ -58,9 +58,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: SettingPage(
-          shared: widget.shared,
-        ),
+        drawer: SettingPage(),
         appBar: AppBar(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -89,9 +87,13 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.8,
                 child: BlocBuilder<ImplementBloc, ImplementState>(
-                  buildWhen: (previous, current) =>
-                      current is! FavoriteRestaurantToShow,
+                  buildWhen: (previous, current) => ![
+                    FavoriteRestaurantToShow,
+                    NotificationSettingState,
+                    NoFavouritesStored,
+                  ].contains(current.runtimeType),
                   builder: (context, state) {
+                    print(state);
                     if (state is HasConnection) {
                       context.read<ImplementBloc>().add(GetAllRestaurant());
                     }

@@ -16,6 +16,14 @@ void main() async {
       defaultColor: Colors.blue,
       importance: NotificationImportance.High,
       channelShowBadge: true,
+    ),
+    NotificationChannel(
+      channelKey: 'scheduled_channel',
+      channelName: 'Scheduled Notification',
+      channelDescription: 'channelDescription',
+      defaultColor: Colors.blue,
+      locked: true,
+      importance: NotificationImportance.High,
     )
   ]);
   final pref = await SharedPreferences.getInstance();

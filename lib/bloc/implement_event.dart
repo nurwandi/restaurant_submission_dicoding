@@ -30,3 +30,13 @@ class AddOrRemoveFavouriteRestaurant extends ImplementEvent {
 //This event will be triggered when you want to retrive data from your
 //sharePref Database
 class GerFavouriteRestaurants extends ImplementEvent {}
+
+//This event is for store setting about send or not a notification to the user.
+
+class StoreNotificationSetting extends ImplementEvent {
+  final bool state;
+
+  StoreNotificationSetting(this.state);
+}
+
+class GetNotificationSettings extends ImplementEvent {}

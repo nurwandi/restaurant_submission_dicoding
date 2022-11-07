@@ -12,8 +12,10 @@ class Favorites extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text('Favorite Restaurants')),
         body: BlocBuilder<ImplementBloc, ImplementState>(
-            buildWhen: (previous, current) =>
-                current is FavoriteRestaurantToShow,
+            buildWhen: (previous, current) => [
+                  FavoriteRestaurantToShow,
+                  NoFavouritesStored
+                ].contains(current.runtimeType),
             builder: (context, state) {
               if (state is FavoriteRestaurantToShow) {
                 return RestaurantCard(
@@ -22,8 +24,11 @@ class Favorites extends StatelessWidget {
                   favouritesRestaurantsIds: state.favouriteRestaurantsIds,
                 );
               } else {
-                context.read<ImplementBloc>().add(GerFavouriteRestaurants());
-                return const Text('Nothing here...');
+                return const Center(
+                    child: Text(
+                  'No favorite restaurants to show...',
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ));
               }
             }));
   }

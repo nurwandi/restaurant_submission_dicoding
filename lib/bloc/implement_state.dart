@@ -40,3 +40,11 @@ class FavoriteRestaurantToShow extends ImplementState {
 
   FavoriteRestaurantToShow(this.restaurants, this.favouriteRestaurantsIds);
 }
+
+class NotificationSettingState extends ImplementState {
+  final bool state;
+
+  NotificationSettingState(this.state);
+}
+
+class NoFavouritesStored extends ImplementState {}

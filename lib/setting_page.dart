@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_2_api/notification.dart';
+import 'package:restaurant_2_api/notification_utilities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SettingPage extends StatefulWidget {
-  final SharedPreferences shared;
+import 'bloc/implement_bloc.dart';
 
-  const SettingPage({super.key, required this.shared});
-  @override
-  State<SettingPage> createState() => _SettingPageState();
-}
-
-class _SettingPageState extends State<SettingPage> {
-  bool _isSwitched = false;
+class SettingPage extends StatelessWidget {
+  const SettingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool isSwitched = false;
+    context.read<ImplementBloc>().add(GetNotificationSettings());
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.85,
       child: Drawer(
@@ -44,21 +42,31 @@ class _SettingPageState extends State<SettingPage> {
               title: Text('Favorites'),
               onTap: () {
                 Navigator.pushNamed(context, '/favorites');
+                context.read<ImplementBloc>().add(GerFavouriteRestaurants());
               },
             ),
             ListTile(
               leading: Icon(Icons.notifications),
               title: Text('Notifications'),
               subtitle: Text('Enable request notifications'),
-              trailing: Switch(
-                  value: _isSwitched,
-                  onChanged: (val) {
-                    setState(() {
-                      (_isSwitched = val)
-                          ? createRestaurantNotification()
-                          : null;
-                    });
-                  }),
+              trailing: BlocBuilder<ImplementBloc, ImplementState>(
+                builder: (context, state) {
+                  if (state is NotificationSettingState) {
+                    isSwitched = state.state;
+                  }
+                  return Switch(
+                      value: isSwitched,
+                      onChanged: (val) async {
+                        NotificationWeekAndTime? pickedSchedule =
+                            await pickSchedule(context);
+                        if (pickedSchedule != null)
+                          createReminderNotification(pickedSchedule);
+                        context
+                            .read<ImplementBloc>()
+                            .add(StoreNotificationSetting(!val));
+                      });
+                },
+              ),
             )
           ],
         ),
