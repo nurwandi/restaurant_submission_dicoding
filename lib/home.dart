@@ -18,8 +18,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) async {
       if (!isAllowed) {
+        await AwesomeNotifications().requestPermissionToSendNotifications();
         showDialog(
           context: context,
           builder: (context) => AlertDialog(

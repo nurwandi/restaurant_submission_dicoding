@@ -57,10 +57,7 @@ class SettingPage extends StatelessWidget {
                   return Switch(
                       value: isSwitched,
                       onChanged: (val) async {
-                        NotificationWeekAndTime? pickedSchedule =
-                            await pickSchedule(context);
-                        if (pickedSchedule != null)
-                          createReminderNotification(pickedSchedule);
+                        initializeNotifications();
                         context
                             .read<ImplementBloc>()
                             .add(StoreNotificationSetting(!val));
