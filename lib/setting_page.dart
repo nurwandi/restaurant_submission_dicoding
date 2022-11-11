@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_2_api/notification.dart';
-import 'package:restaurant_2_api/notification_utilities.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'bloc/implement_bloc.dart';
+import 'notification.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});

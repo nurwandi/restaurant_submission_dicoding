@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_2_api/bloc/implement_bloc.dart';
-import 'package:restaurant_2_api/widgets/restaurant_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'bloc/implement_bloc.dart';
+import 'widgets/restaurant_card.dart';
 
 class Favorites extends StatelessWidget {
   const Favorites({super.key, required this.shared});

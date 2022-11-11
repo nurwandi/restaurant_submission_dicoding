@@ -1,10 +1,10 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_2_api/setting_page.dart';
-import 'package:restaurant_2_api/widgets/restaurant_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/implement_bloc.dart';
+import 'setting_page.dart';
+import 'widgets/restaurant_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.shared}) : super(key: key);

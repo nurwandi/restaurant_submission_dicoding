@@ -1,14 +1,11 @@
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-
-import 'package:restaurant_2_api/api_test.dart';
-import 'package:restaurant_2_api/models/restaurant.dart';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import '../api_test.dart';
 import '../models/details.dart';
-
+import '../models/restaurant.dart';
 part 'implement_event.dart';
 part 'implement_state.dart';
 
@@ -39,6 +36,12 @@ class ImplementBloc extends Bloc<ImplementEvent, ImplementState> {
             sharedPreferences.getStringList('listOfFavouritesRestaurants') ??
                 [];
         var restaurant = await api.list();
+
+        final randomRest = restaurant
+            .restaurants[Random().nextInt(restaurant.restaurants.length)];
+        sharedPreferences.setString('title', randomRest.name);
+        sharedPreferences.setString('body', randomRest.description);
+        sharedPreferences.setString('id', randomRest.id);
         emit(AllRestaurantLoadedState(
             restaurant.restaurants, listOfFavouritesRestaurants));
       } on InternetException {

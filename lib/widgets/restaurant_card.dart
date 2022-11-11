@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurant_2_api/bloc/implement_bloc.dart';
-import 'package:restaurant_2_api/restaurant_detail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../bloc/implement_bloc.dart';
 import '../models/restaurant.dart';
+import '../restaurant_detail.dart';
 
 class RestaurantCard extends StatelessWidget {
   final List<String> favouritesRestaurantsIds;
