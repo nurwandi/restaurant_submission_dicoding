@@ -150,8 +150,7 @@ class RestaurantCard extends StatelessWidget {
                                       : Colors.grey,
                                   size: 18,
                                 ),
-                                const SizedBox(width: 7),
-                                const Text('Favorite'),
+                              
                               ],
                             ),
                           ),

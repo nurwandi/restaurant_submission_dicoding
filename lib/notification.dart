@@ -30,11 +30,10 @@ Future<void> initializeNotifications() async {
   });
 
   final calendar = NotificationCalendar(
-      weekday: 3,
-      hour: 11,
-      allowWhileIdle: true,
-      preciseAlarm: true,
-      repeats: true);
+    hour: 11,
+    allowWhileIdle: true,
+    preciseAlarm: true,
+  );
 
   final shared = await SharedPreferences.getInstance();
 
